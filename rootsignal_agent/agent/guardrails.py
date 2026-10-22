@@ -27,6 +27,7 @@ ALLOWED_TOOLS: frozenset[str] = frozenset(
 ALLOWED_REMEDIATIONS: frozenset[str] = frozenset(a.value for a in RemediationAction)
 
 DEFAULT_MAX_TOOL_CALLS = 10
+DEFAULT_MAX_TURNS = 20  # model calls per investigation, a backstop behind the tool budget
 DEFAULT_INVESTIGATION_TIMEOUT_S = 120
 DEFAULT_TOOL_TIMEOUT_S = 30
 MAX_TOOL_RESULT_CHARS = 8000
@@ -76,10 +77,44 @@ def redact_text(text: str) -> str:
     return _KEY_VALUE.sub(_redact_key_value, text)
 
 
+# Values after a key that describe a state rather than hold a secret. "token: expired" is
+# diagnostic evidence the agent needs, so these are kept. Anything else is still redacted.
+_STATUS_WORDS: frozenset[str] = frozenset(
+    {
+        "expired",
+        "invalid",
+        "missing",
+        "null",
+        "none",
+        "empty",
+        "revoked",
+        "denied",
+        "rejected",
+        "unauthorized",
+        "forbidden",
+        "required",
+        "rotated",
+        "refreshed",
+        "valid",
+        "absent",
+        "unknown",
+        "failed",
+        "error",
+        "true",
+        "false",
+    }
+)
+_TRAILING_PUNCTUATION = ".!?:)]}"
+
+
 def _redact_key_value(match: re.Match[str]) -> str:
+    value = match.group("value")
     # "Authorization: Bearer [REDACTED]" has the value "Bearer" here; leave it, the
     # bearer rule already handled the token after it.
-    if match.group("value").lower() == "bearer":
+    if value.lower() == "bearer":
+        return match.group(0)
+    # "token: expired." -> the value is "expired." -> a status word, not a secret.
+    if value.rstrip(_TRAILING_PUNCTUATION).lower() in _STATUS_WORDS:
         return match.group(0)
     return _keep_prefix(match)
 

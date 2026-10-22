@@ -3,6 +3,7 @@ import pytest
 from rootsignal_agent.agent.guardrails import (
     ALLOWED_REMEDIATIONS,
     ALLOWED_TOOLS,
+    DEFAULT_MAX_TURNS,
     MAX_TOOL_RESULT_CHARS,
     redact,
     redact_text,
@@ -90,6 +91,7 @@ def test_truncate_result():
     assert out == "x" * 10 + "...[truncated 10 chars]"
     assert len(truncate_result("y" * 9000)) < 9000 + 40
     assert MAX_TOOL_RESULT_CHARS == 8000
+    assert DEFAULT_MAX_TURNS == 20
 
 
 def _raw_log_text(scenario) -> str:
@@ -99,6 +101,57 @@ def _raw_log_text(scenario) -> str:
 def test_no_fake_secret_survives_redaction_in_any_scenario():
     for sid, scenario in load_scenarios().items():
         assert "FAKE-" not in redact_text(_raw_log_text(scenario)), sid
+
+
+STATUS_VALUES = [
+    "token: expired",
+    "token=EXPIRED.",
+    "password: invalid",
+    "api_key=missing",
+    '"secret": "null"',
+    "client_secret=revoked,",
+    "authorization: denied!",
+    "access_key: rotated)",
+    "token=refreshed",
+    "pwd: none",
+    "secret=false",
+]
+
+
+@pytest.mark.parametrize("text", STATUS_VALUES)
+def test_status_words_after_a_key_are_preserved(text):
+    assert redact_text(text) == text
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("password=correcthorsebatterystaple", "password=[REDACTED]"),
+        ("token=expired_but_actually_a_secret", "token=[REDACTED]"),
+        ("api_key=invalid1234", "api_key=[REDACTED]"),
+        ("secret: s3cr3t.", "secret: [REDACTED]"),
+    ],
+)
+def test_secret_looking_values_still_redacted(raw, expected):
+    assert redact_text(raw) == expected
+
+
+@pytest.mark.parametrize("text", STATUS_VALUES)
+def test_status_word_redaction_is_idempotent(text):
+    once = redact_text(text)
+    assert redact_text(once) == once
+
+
+def test_redaction_keeps_every_key_evidence_substring():
+    # Redaction must never destroy evidence the evals rely on. Checked per line and on
+    # the whole log, since tool results carry many lines at once.
+    for sid, scenario in load_scenarios().items():
+        lines = [f"{line.level} {line.component} {line.message}" for line in scenario.logs]
+        redacted_whole = redact_text("\n".join(lines))
+        redacted_lines = "\n".join(redact_text(line) for line in lines)
+        for evidence in scenario.ground_truth.key_evidence:
+            assert evidence in redacted_whole, (sid, evidence)
+            assert evidence in redacted_lines, (sid, evidence)
 
 
 def test_raw_auth_logs_do_contain_fake_secret():
