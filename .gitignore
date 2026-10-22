@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Go (probe)
+probe/probe
+probe/bin/
+*.test
+*.out
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# FAISS index files
+*.faiss
+*.index
+
+# Agent traces / logs
+traces/
+*.jsonl
+
+# Grafana / Prometheus local data volumes
+grafana-data/
+prometheus-data/
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+*:Zone.Identifier
+
+# local-only project docs
+plan.md
+CLAUDE.md
