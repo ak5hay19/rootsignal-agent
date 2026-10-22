@@ -1,0 +1,70 @@
+id: upstream_late_01
+team: finance-reporting
+job_name: finance_ledger_rollup
+user_report: "The close report is blank this morning and I'm presenting it at 9. The payments data normally lands before 3am - was there a delay or did our side break?"
+as_of: "2026-10-15T06:25:00"
+is_misleading: false
+job_state:
+  job_name: finance_ledger_rollup
+  status: "failed"
+  started_at: "2026-10-15T02:00:00"
+  ended_at: "2026-10-15T06:00:09"
+  attempt: 1
+  max_attempts: 2
+  last_success_at: "2026-10-14T02:41:05"
+  exit_reason: "sensor timeout after 14400s"
+logs:
+  - {ts: "2026-10-15T02:00:00", level: INFO, component: "scheduler", message: "DagRun finance_ledger_rollup started (run_id=scheduled__2026-10-15T02:00:00+00:00)"}
+  - {ts: "2026-10-15T02:00:02", level: INFO, component: "scheduler", message: "Marked task finance_ledger_rollup.wait_for_payments as queued, attempt 1 of 2"}
+  - {ts: "2026-10-15T02:00:05", level: INFO, component: "sensor", message: "Sensor wait_for_payments poking s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS (timeout 14400s, poke interval 1200s)"}
+  - {ts: "2026-10-15T02:10:00", level: INFO, component: "scheduler", message: "Heartbeat received from worker-02.dp.internal"}
+  - {ts: "2026-10-15T02:20:05", level: INFO, component: "sensor", message: "Poke 2: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T02:25:00", level: INFO, component: "scheduler", message: "Scheduler loop: 3 DagRuns active, 0 queued tasks"}
+  - {ts: "2026-10-15T02:40:05", level: INFO, component: "sensor", message: "Poke 3: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T02:50:00", level: INFO, component: "scheduler", message: "Heartbeat received from worker-03.dp.internal"}
+  - {ts: "2026-10-15T03:00:05", level: INFO, component: "sensor", message: "Poke 4: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T03:05:12", level: WARN, component: "sensor", message: "Upstream payments_ingest.load_raw has not finished; expected completion 02:30 (SLA missed)"}
+  - {ts: "2026-10-15T03:15:00", level: INFO, component: "scheduler", message: "Scheduler loop: 4 DagRuns active, 0 queued tasks"}
+  - {ts: "2026-10-15T03:20:05", level: INFO, component: "sensor", message: "Poke 5: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T03:30:00", level: INFO, component: "scheduler", message: "Heartbeat received from worker-04.dp.internal"}
+  - {ts: "2026-10-15T03:40:05", level: INFO, component: "sensor", message: "Poke 6: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T03:55:00", level: INFO, component: "scheduler", message: "Scheduler loop: 3 DagRuns active, 0 queued tasks"}
+  - {ts: "2026-10-15T04:00:05", level: INFO, component: "sensor", message: "Poke 7: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T04:10:00", level: INFO, component: "scheduler", message: "Heartbeat received from worker-02.dp.internal"}
+  - {ts: "2026-10-15T04:10:44", level: INFO, component: "scheduler", message: "Upstream payments_ingest.load_raw still running, started 2026-10-15T03:12:08"}
+  - {ts: "2026-10-15T04:20:05", level: INFO, component: "sensor", message: "Poke 8: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T04:35:00", level: INFO, component: "scheduler", message: "Scheduler loop: 4 DagRuns active, 0 queued tasks"}
+  - {ts: "2026-10-15T04:40:05", level: INFO, component: "sensor", message: "Poke 9: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T04:50:00", level: INFO, component: "scheduler", message: "Heartbeat received from worker-03.dp.internal"}
+  - {ts: "2026-10-15T05:00:05", level: INFO, component: "sensor", message: "Poke 10: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T05:15:00", level: INFO, component: "scheduler", message: "Scheduler loop: 3 DagRuns active, 0 queued tasks"}
+  - {ts: "2026-10-15T05:20:05", level: INFO, component: "sensor", message: "Poke 11: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T05:30:00", level: INFO, component: "scheduler", message: "Heartbeat received from worker-04.dp.internal"}
+  - {ts: "2026-10-15T05:40:05", level: INFO, component: "sensor", message: "Poke 12: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found, sleeping 1200s"}
+  - {ts: "2026-10-15T05:55:00", level: INFO, component: "scheduler", message: "Scheduler loop: 4 DagRuns active, 0 queued tasks"}
+  - {ts: "2026-10-15T06:00:05", level: ERROR, component: "sensor", message: "Sensor wait_for_payments timed out after 14400s: s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS not found"}
+  - {ts: "2026-10-15T06:00:06", level: ERROR, component: "scheduler", message: "airflow.exceptions.AirflowSensorTimeout: Snap. Time is OUT. (task finance_ledger_rollup.wait_for_payments)"}
+  - {ts: "2026-10-15T06:00:09", level: INFO, component: "scheduler", message: "DagRun finance_ledger_rollup marked failed; alert sent to #finance-reporting-alerts"}
+  - {ts: "2026-10-15T06:14:31", level: INFO, component: "scheduler", message: "Upstream payments_ingest.load_raw marked success; wrote s3://dp-lake/raw/payments/ds=2026-10-14/_SUCCESS"}
+metrics:
+  - name: input_rows_total
+    shape: spike
+    baseline: 2400000.0
+    peak: 0.0
+    start_minute: 95
+    end_minute: 335
+    noise: 0.03
+    seed: 11130
+recent_incidents:
+  - {job_name: finance_ledger_rollup, status: failed, finished_at: "2026-10-15T06:00:09", title: "finance_ledger_rollup failed: sensor timeout after 14400s"}
+  - {job_name: fx_rates_load, status: resolved, finished_at: "2026-10-11T04:20:00", title: "fx_rates_load produced duplicate rows, cleaned up"}
+  - {job_name: tax_report_export, status: resolved, finished_at: "2026-10-09T09:45:00", title: "tax_report_export ran 40 minutes slower than usual"}
+ground_truth:
+  root_cause_category: upstream_late
+  root_cause_detail: "The upstream payments_ingest load started about 70 minutes after its SLA and only published its completion marker at 06:14, so the rollup's sensor timed out before the input partition existed."
+  correct_runbook: upstream_late.md
+  correct_remediation: rerun_with_backoff
+  key_evidence:
+    - "_SUCCESS not found, sleeping 1200s"
+    - "payments_ingest.load_raw still running, started 2026-10-15T03:12:08"
+    - "AirflowSensorTimeout"

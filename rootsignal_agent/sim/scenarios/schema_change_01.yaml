@@ -1,0 +1,69 @@
+id: schema_change_01
+team: finance-reporting
+job_name: refunds_daily_agg
+user_report: "Hi - refunds_daily_agg failed at 4am and it fails instantly on every retry, so it's not flaky. It ran fine through Friday. Could you check what's up?"
+as_of: "2026-10-12T08:10:00"
+is_misleading: false
+job_state:
+  job_name: refunds_daily_agg
+  status: "failed"
+  started_at: "2026-10-12T04:00:00"
+  ended_at: "2026-10-12T04:14:11"
+  attempt: 3
+  max_attempts: 3
+  last_success_at: "2026-10-09T04:12:30"
+  exit_reason: "task failed after 3 attempts"
+logs:
+  - {ts: "2026-10-12T04:00:00", level: INFO, component: "scheduler", message: "DagRun refunds_daily_agg started (run_id=scheduled__2026-10-12T01:00:00+00:00)"}
+  - {ts: "2026-10-12T04:00:02", level: INFO, component: "scheduler", message: "Marked task refunds_daily_agg.aggregate_refunds as queued, attempt 3 of 3"}
+  - {ts: "2026-10-12T04:00:09", level: INFO, component: "driver", message: "Running Spark version 3.5.1"}
+  - {ts: "2026-10-12T04:00:10", level: WARN, component: "driver", message: "NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"}
+  - {ts: "2026-10-12T04:00:14", level: INFO, component: "driver", message: "Submitted application application_176002900004_0042"}
+  - {ts: "2026-10-12T04:00:31", level: WARN, component: "driver", message: "ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped"}
+  - {ts: "2026-10-12T04:00:40", level: INFO, component: "driver", message: "Registered executor worker-05.dp.internal with ID 1"}
+  - {ts: "2026-10-12T04:01:14", level: INFO, component: "driver", message: "Reading input table dim.merchants partition ds=2026-10-12"}
+  - {ts: "2026-10-12T04:01:50", level: INFO, component: "executor-2", message: "Added broadcast_5_piece0 in memory on worker-05.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-12T04:02:44", level: INFO, component: "executor-3", message: "Got assigned task 22"}
+  - {ts: "2026-10-12T04:02:53", level: INFO, component: "driver", message: "Finished task 18.0 in stage 0.0 (TID 27) in 12798 ms on worker-05.dp.internal (executor 4) (93/200)"}
+  - {ts: "2026-10-12T04:03:48", level: INFO, component: "executor-1", message: "Finished task 176.0 in stage 0.0 (TID 30). 2314 bytes result sent to driver"}
+  - {ts: "2026-10-12T04:04:05", level: INFO, component: "executor-5", message: "Got assigned task 35"}
+  - {ts: "2026-10-12T04:04:56", level: INFO, component: "executor-3", message: "Finished task 27.0 in stage 0.0 (TID 45). 2341 bytes result sent to driver"}
+  - {ts: "2026-10-12T04:05:18", level: INFO, component: "scheduler", message: "Heartbeat received from worker-06.dp.internal"}
+  - {ts: "2026-10-12T04:05:54", level: INFO, component: "driver", message: "ShuffleMapStage 0 (toPandas at refunds_daily_agg.py:98) finished in 39.652 s"}
+  - {ts: "2026-10-12T04:06:28", level: INFO, component: "executor-3", message: "Finished task 16.0 in stage 0.0 (TID 54). 2341 bytes result sent to driver"}
+  - {ts: "2026-10-12T04:07:04", level: INFO, component: "executor-4", message: "Got assigned task 61"}
+  - {ts: "2026-10-12T04:07:54", level: INFO, component: "driver", message: "ShuffleMapStage 0 (count at refunds_daily_agg.py:76) finished in 62.796 s"}
+  - {ts: "2026-10-12T04:08:36", level: INFO, component: "scheduler", message: "Task refunds_daily_agg.aggregate_refunds heartbeat: pid 23465 alive"}
+  - {ts: "2026-10-12T04:09:18", level: INFO, component: "executor-4", message: "Got assigned task 86"}
+  - {ts: "2026-10-12T04:09:38", level: INFO, component: "driver", message: "Finished task 141.0 in stage 0.0 (TID 90) in 3591 ms on worker-06.dp.internal (executor 6) (55/200)"}
+  - {ts: "2026-10-12T04:10:04", level: INFO, component: "driver", message: "Starting job: count at refunds_daily_agg.py:60"}
+  - {ts: "2026-10-12T04:10:55", level: INFO, component: "driver", message: "Starting job: save at refunds_daily_agg.py:59"}
+  - {ts: "2026-10-12T04:11:26", level: INFO, component: "scheduler", message: "Task refunds_daily_agg.aggregate_refunds heartbeat: pid 28156 alive"}
+  - {ts: "2026-10-12T04:12:02", level: INFO, component: "executor-3", message: "Finished task 150.0 in stage 0.0 (TID 115). 2341 bytes result sent to driver"}
+  - {ts: "2026-10-12T04:12:54", level: INFO, component: "scheduler", message: "Heartbeat received from worker-05.dp.internal"}
+  - {ts: "2026-10-12T04:14:02", level: INFO, component: "driver", message: "Reading table raw.refunds (schema version 14, 11 columns)"}
+  - {ts: "2026-10-12T04:14:03", level: WARN, component: "driver", message: "Input schema for raw.refunds differs from last successful run: missing [refund_reason_code], new [reason_code]"}
+  - {ts: "2026-10-12T04:14:05", level: ERROR, component: "driver", message: "org.apache.spark.sql.AnalysisException: Column 'refund_reason_code' does not exist. Did you mean one of: [refund_id, merchant_id, reason_code, amount_cents]"}
+  - {ts: "2026-10-12T04:14:05", level: ERROR, component: "driver", message: "  at org.apache.spark.sql.catalyst.analysis.package$AnalysisErrorAt.failAnalysis(package.scala:54)"}
+  - {ts: "2026-10-12T04:14:09", level: ERROR, component: "scheduler", message: "Task refunds_daily_agg.aggregate_refunds failed after 3 attempts (same error on every attempt)"}
+  - {ts: "2026-10-12T04:14:11", level: INFO, component: "scheduler", message: "DagRun refunds_daily_agg marked failed; alert sent to #finance-reporting-alerts"}
+metrics:
+  - name: job_retry_count
+    shape: step
+    baseline: 0.0
+    peak: 3.0
+    start_minute: 124
+    noise: 0.0
+    seed: 10682
+recent_incidents:
+  - {job_name: refunds_daily_agg, status: failed, finished_at: "2026-10-12T04:14:11", title: "refunds_daily_agg failed: task failed after 3 attempts"}
+  - {job_name: merchant_dim_sync, status: resolved, finished_at: "2026-10-07T06:00:00", title: "merchant_dim_sync took 2x its usual runtime"}
+  - {job_name: chargeback_report, status: resolved, finished_at: "2026-10-03T10:10:00", title: "chargeback_report emailed an empty file once"}
+ground_truth:
+  root_cause_category: schema_change
+  root_cause_detail: "The raw.refunds table was changed upstream (refund_reason_code renamed to reason_code), so the aggregation's reference to the old column fails analysis on every attempt."
+  correct_runbook: schema_change.md
+  correct_remediation: escalate_to_oncall
+  key_evidence:
+    - "Column 'refund_reason_code' does not exist"
+    - "missing [refund_reason_code], new [reason_code]"

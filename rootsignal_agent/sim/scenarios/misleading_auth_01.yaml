@@ -1,0 +1,80 @@
+id: misleading_auth_01
+team: growth-ml
+job_name: campaign_spend_sync
+user_report: "campaign_spend_sync failed this morning. I saw some disk and GC warnings in the logs, is the worker out of space or something? Marketing is waiting on spend numbers."
+as_of: "2026-10-15T05:15:00"
+is_misleading: true
+job_state:
+  job_name: campaign_spend_sync
+  status: "failed"
+  started_at: "2026-10-15T04:00:00"
+  ended_at: "2026-10-15T04:41:14"
+  attempt: 3
+  max_attempts: 3
+  last_success_at: "2026-10-14T04:36:48"
+  exit_reason: "task failed after 3 attempts"
+logs:
+  - {ts: "2026-10-15T04:00:00", level: INFO, component: "scheduler", message: "DagRun campaign_spend_sync started (run_id=scheduled__2026-10-15T01:00:00+00:00)"}
+  - {ts: "2026-10-15T04:00:02", level: INFO, component: "scheduler", message: "Marked task campaign_spend_sync.pull_ad_spend as queued, attempt 3 of 3"}
+  - {ts: "2026-10-15T04:00:09", level: INFO, component: "driver", message: "Running Spark version 3.5.1"}
+  - {ts: "2026-10-15T04:00:10", level: WARN, component: "driver", message: "NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"}
+  - {ts: "2026-10-15T04:00:14", level: INFO, component: "driver", message: "Submitted application application_176005020008_0042"}
+  - {ts: "2026-10-15T04:00:31", level: WARN, component: "driver", message: "ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped"}
+  - {ts: "2026-10-15T04:00:40", level: INFO, component: "driver", message: "Registered executor worker-09.dp.internal with ID 1"}
+  - {ts: "2026-10-15T04:02:13", level: INFO, component: "driver", message: "ShuffleMapStage 0 (parquet at campaign_spend_sync.py:91) finished in 6.263 s"}
+  - {ts: "2026-10-15T04:03:58", level: INFO, component: "driver", message: "Block broadcast_8 stored as values in memory (estimated size 59.2 KiB, free 2.1 GiB)"}
+  - {ts: "2026-10-15T04:07:17", level: INFO, component: "executor-5", message: "Finished task 199.0 in stage 0.0 (TID 115). 2341 bytes result sent to driver"}
+  - {ts: "2026-10-15T04:08:30", level: WARN, component: "executor-2", message: "Disk usage alert: /mnt/scratch on worker-09.dp.internal at 82% (threshold 80%)"}
+  - {ts: "2026-10-15T04:09:12", level: INFO, component: "driver", message: "Finished task 178.0 in stage 0.0 (TID 153) in 8237 ms on worker-09.dp.internal (executor 6) (5/200)"}
+  - {ts: "2026-10-15T04:12:04", level: INFO, component: "driver", message: "Reading input table dim.campaigns partition ds=2026-10-15"}
+  - {ts: "2026-10-15T04:14:50", level: INFO, component: "driver", message: "Reading input table dim.campaigns partition ds=2026-10-15"}
+  - {ts: "2026-10-15T04:15:12", level: WARN, component: "executor-2", message: "JVM GC pause of 1840 ms detected"}
+  - {ts: "2026-10-15T04:17:33", level: INFO, component: "driver", message: "Finished task 48.0 in stage 1.0 (TID 299) in 2772 ms on worker-09.dp.internal (executor 4) (48/200)"}
+  - {ts: "2026-10-15T04:19:31", level: INFO, component: "driver", message: "ShuffleMapStage 1 (collect at campaign_spend_sync.py:98) finished in 26.236 s"}
+  - {ts: "2026-10-15T04:20:58", level: INFO, component: "executor-2", message: "Got assigned task 364"}
+  - {ts: "2026-10-15T04:21:47", level: ERROR, component: "executor-2", message: "Disk usage alert: /mnt/scratch on worker-09.dp.internal still above threshold, 82%"}
+  - {ts: "2026-10-15T04:23:51", level: INFO, component: "driver", message: "ShuffleMapStage 1 (toPandas at campaign_spend_sync.py:69) finished in 16.528 s"}
+  - {ts: "2026-10-15T04:26:03", level: WARN, component: "executor-3", message: "JVM GC pause of 2210 ms detected"}
+  - {ts: "2026-10-15T04:27:26", level: INFO, component: "scheduler", message: "Heartbeat received from worker-13.dp.internal"}
+  - {ts: "2026-10-15T04:29:04", level: INFO, component: "executor-3", message: "Got assigned task 511"}
+  - {ts: "2026-10-15T04:31:36", level: INFO, component: "scheduler", message: "Task campaign_spend_sync.pull_ad_spend heartbeat: pid 25478 alive"}
+  - {ts: "2026-10-15T04:33:20", level: WARN, component: "driver", message: "HTTP 401 Unauthorized from ads-api.partner-example.net, attempting token refresh"}
+  - {ts: "2026-10-15T04:33:21", level: ERROR, component: "driver", message: "Token refresh rejected by ads-api.partner-example.net: invalid_grant (refresh token expired)"}
+  - {ts: "2026-10-15T04:33:22", level: ERROR, component: "executor-3", message: "org.apache.spark.SparkException: Task failed while fetching ad spend: HTTP 401 Unauthorized"}
+  - {ts: "2026-10-15T04:33:30", level: WARN, component: "executor-2", message: "JVM GC pause of 1620 ms detected"}
+  - {ts: "2026-10-15T04:34:47", level: INFO, component: "scheduler", message: "Task campaign_spend_sync.pull_ad_spend heartbeat: pid 29681 alive"}
+  - {ts: "2026-10-15T04:35:38", level: INFO, component: "executor-5", message: "Finished task 183.0 in stage 2.0 (TID 630). 2314 bytes result sent to driver"}
+  - {ts: "2026-10-15T04:38:16", level: INFO, component: "scheduler", message: "Task campaign_spend_sync.pull_ad_spend heartbeat: pid 23515 alive"}
+  - {ts: "2026-10-15T04:41:05", level: ERROR, component: "driver", message: "Job aborted due to stage failure: Task 2 in stage 3.0 failed 4 times, most recent failure: HTTP 401 Unauthorized"}
+  - {ts: "2026-10-15T04:41:12", level: ERROR, component: "scheduler", message: "Task campaign_spend_sync.pull_ad_spend failed after 3 attempts"}
+  - {ts: "2026-10-15T04:41:14", level: INFO, component: "scheduler", message: "DagRun campaign_spend_sync marked failed; alert sent to #growth-ml-alerts"}
+metrics:
+  - name: disk_utilization_ratio
+    shape: flat
+    baseline: 0.82
+    noise: 0.01
+    seed: 12418
+  - name: gc_time_ratio
+    shape: flat
+    baseline: 0.12
+    noise: 0.08
+    seed: 12419
+  - name: job_retry_count
+    shape: step
+    baseline: 0.0
+    peak: 3.0
+    start_minute: 318
+    noise: 0.0
+    seed: 12420
+recent_incidents:
+  - {job_name: campaign_spend_sync, status: failed, finished_at: "2026-10-15T04:41:14", title: "campaign_spend_sync failed: task failed after 3 attempts"}
+  - {job_name: ml_feature_backfill, status: resolved, finished_at: "2026-10-14T05:31:27", title: "ml_feature_backfill failed: timed out waiting for executors"}
+  - {job_name: embedding_refresh, status: resolved, finished_at: "2026-10-04T03:00:00", title: "embedding_refresh ran twice, duplicates removed"}
+ground_truth:
+  root_cause_category: auth_expired
+  root_cause_detail: "The refresh token for the partner ads API expired, so every call returned 401 and the token refresh was rejected. The 82% disk usage and GC pauses are long-standing background noise and did not fail the job."
+  correct_runbook: auth_expired.md
+  correct_remediation: escalate_to_oncall
+  key_evidence:
+    - "Token refresh rejected by ads-api.partner-example.net: invalid_grant (refresh token expired)"
+    - "HTTP 401 Unauthorized"

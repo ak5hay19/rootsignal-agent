@@ -1,0 +1,72 @@
+id: disk_full_01
+team: content-platform
+job_name: clickstream_sessionize
+user_report: "clickstream_sessionize died around 2:30am. The first attempt died too, no idea why. Sessions table for yesterday is missing so the engagement dashboards are stale."
+as_of: "2026-10-13T03:00:00"
+is_misleading: false
+job_state:
+  job_name: clickstream_sessionize
+  status: "failed"
+  started_at: "2026-10-13T00:30:00"
+  ended_at: "2026-10-13T02:34:21"
+  attempt: 2
+  max_attempts: 2
+  last_success_at: "2026-10-12T01:58:09"
+  exit_reason: "task failed after 2 attempts"
+logs:
+  - {ts: "2026-10-13T00:30:00", level: INFO, component: "scheduler", message: "DagRun clickstream_sessionize started (run_id=scheduled__2026-10-13T01:00:00+00:00)"}
+  - {ts: "2026-10-13T00:30:02", level: INFO, component: "scheduler", message: "Marked task clickstream_sessionize.sessionize as queued, attempt 2 of 2"}
+  - {ts: "2026-10-13T00:30:09", level: INFO, component: "driver", message: "Running Spark version 3.5.1"}
+  - {ts: "2026-10-13T00:30:10", level: WARN, component: "driver", message: "NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"}
+  - {ts: "2026-10-13T00:30:14", level: INFO, component: "driver", message: "Submitted application application_176003150005_0042"}
+  - {ts: "2026-10-13T00:30:31", level: WARN, component: "driver", message: "ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped"}
+  - {ts: "2026-10-13T00:30:40", level: INFO, component: "driver", message: "Registered executor worker-14.dp.internal with ID 1"}
+  - {ts: "2026-10-13T00:32:31", level: INFO, component: "driver", message: "Finished task 141.0 in stage 0.0 (TID 53) in 5091 ms on worker-18.dp.internal (executor 2) (102/200)"}
+  - {ts: "2026-10-13T00:39:00", level: INFO, component: "scheduler", message: "Task clickstream_sessionize.sessionize heartbeat: pid 25610 alive"}
+  - {ts: "2026-10-13T00:44:21", level: INFO, component: "scheduler", message: "Heartbeat received from worker-16.dp.internal"}
+  - {ts: "2026-10-13T00:50:40", level: INFO, component: "executor-3", message: "Added broadcast_22_piece0 in memory on worker-18.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T00:55:42", level: INFO, component: "driver", message: "Block broadcast_15 stored as values in memory (estimated size 44.0 KiB, free 2.1 GiB)"}
+  - {ts: "2026-10-13T00:59:20", level: INFO, component: "driver", message: "Starting job: collect at clickstream_sessionize.py:135"}
+  - {ts: "2026-10-13T01:06:00", level: INFO, component: "executor-2", message: "Added broadcast_30_piece0 in memory on worker-14.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T01:07:59", level: INFO, component: "driver", message: "Starting job: save at clickstream_sessionize.py:92"}
+  - {ts: "2026-10-13T01:16:52", level: INFO, component: "executor-5", message: "Added broadcast_16_piece0 in memory on worker-14.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T01:18:48", level: INFO, component: "scheduler", message: "Task clickstream_sessionize.sessionize heartbeat: pid 20669 alive"}
+  - {ts: "2026-10-13T01:27:40", level: INFO, component: "scheduler", message: "Task clickstream_sessionize.sessionize heartbeat: pid 25029 alive"}
+  - {ts: "2026-10-13T01:32:34", level: INFO, component: "driver", message: "ShuffleMapStage 2 (save at clickstream_sessionize.py:97) finished in 15.699 s"}
+  - {ts: "2026-10-13T01:37:30", level: INFO, component: "executor-3", message: "Added broadcast_19_piece0 in memory on worker-18.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T01:41:08", level: INFO, component: "driver", message: "Reading input table dim.pages partition ds=2026-10-13"}
+  - {ts: "2026-10-13T01:48:20", level: WARN, component: "executor-6", message: "Local dir /mnt/scratch/spark on worker-14.dp.internal at 91% usage"}
+  - {ts: "2026-10-13T01:48:24", level: INFO, component: "driver", message: "Reading input table dim.pages partition ds=2026-10-13"}
+  - {ts: "2026-10-13T01:52:45", level: INFO, component: "driver", message: "Starting job: count at clickstream_sessionize.py:68"}
+  - {ts: "2026-10-13T01:56:39", level: INFO, component: "driver", message: "ShuffleMapStage 4 (count at clickstream_sessionize.py:122) finished in 13.670 s"}
+  - {ts: "2026-10-13T02:02:01", level: INFO, component: "executor-6", message: "Added broadcast_24_piece0 in memory on worker-18.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T02:06:58", level: INFO, component: "executor-6", message: "Finished task 175.0 in stage 4.0 (TID 2866). 2290 bytes result sent to driver"}
+  - {ts: "2026-10-13T02:10:05", level: WARN, component: "executor-6", message: "Local dir /mnt/scratch/spark on worker-14.dp.internal at 97% usage"}
+  - {ts: "2026-10-13T02:11:59", level: INFO, component: "executor-3", message: "Got assigned task 3016"}
+  - {ts: "2026-10-13T02:22:41", level: ERROR, component: "executor-6", message: "java.io.IOException: No space left on device"}
+  - {ts: "2026-10-13T02:22:41", level: ERROR, component: "executor-6", message: "  at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:178)"}
+  - {ts: "2026-10-13T02:22:45", level: ERROR, component: "driver", message: "Lost executor 6 on worker-14.dp.internal: Shuffle write failed, local disk unusable"}
+  - {ts: "2026-10-13T02:34:10", level: ERROR, component: "driver", message: "Job aborted due to stage failure: Task 54 in stage 5.0 failed 4 times, most recent failure: java.io.IOException: No space left on device"}
+  - {ts: "2026-10-13T02:34:19", level: ERROR, component: "scheduler", message: "Task clickstream_sessionize.sessionize failed after 2 attempts"}
+  - {ts: "2026-10-13T02:34:21", level: INFO, component: "scheduler", message: "DagRun clickstream_sessionize marked failed; alert sent to #content-platform-alerts"}
+metrics:
+  - name: disk_utilization_ratio
+    shape: ramp
+    baseline: 0.4
+    peak: 0.99
+    start_minute: 225
+    end_minute: 322
+    noise: 0.01
+    seed: 8043
+recent_incidents:
+  - {job_name: clickstream_sessionize, status: failed, finished_at: "2026-10-13T02:34:21", title: "clickstream_sessionize failed: task failed after 2 attempts"}
+  - {job_name: cms_events_sync, status: resolved, finished_at: "2026-10-09T04:10:00", title: "cms_events_sync delayed 15 minutes"}
+  - {job_name: search_index_refresh, status: resolved, finished_at: "2026-10-05T05:00:00", title: "search_index_refresh produced a partial index, rebuilt"}
+ground_truth:
+  root_cause_category: disk_full
+  root_cause_detail: "The scratch volume on worker-14 filled up with shuffle spill during sessionization, so shuffle writes failed with no space left on the device."
+  correct_runbook: disk_full.md
+  correct_remediation: clear_scratch_space
+  key_evidence:
+    - "Local dir /mnt/scratch/spark on worker-14.dp.internal at 97% usage"
+    - "java.io.IOException: No space left on device"

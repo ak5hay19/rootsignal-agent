@@ -1,0 +1,77 @@
+id: starvation_01
+team: growth-ml
+job_name: ml_feature_backfill
+user_report: "ml_feature_backfill didn't even start doing work this morning, it just sat there for half an hour and then errored. The cluster seemed busy - did someone launch something big?"
+as_of: "2026-10-14T05:50:00"
+is_misleading: false
+job_state:
+  job_name: ml_feature_backfill
+  status: "failed"
+  started_at: "2026-10-14T05:00:00"
+  ended_at: "2026-10-14T05:31:27"
+  attempt: 1
+  max_attempts: 2
+  last_success_at: "2026-10-13T05:44:02"
+  exit_reason: "timed out waiting for executors (1800s)"
+logs:
+  - {ts: "2026-10-14T05:00:00", level: INFO, component: "scheduler", message: "DagRun ml_feature_backfill started (run_id=scheduled__2026-10-14T01:00:00+00:00)"}
+  - {ts: "2026-10-14T05:00:02", level: INFO, component: "scheduler", message: "Marked task ml_feature_backfill.backfill_features as queued, attempt 1 of 2"}
+  - {ts: "2026-10-14T05:00:09", level: INFO, component: "driver", message: "Running Spark version 3.5.1"}
+  - {ts: "2026-10-14T05:00:10", level: WARN, component: "driver", message: "NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"}
+  - {ts: "2026-10-14T05:00:14", level: INFO, component: "driver", message: "Submitted application application_176004050006_0042"}
+  - {ts: "2026-10-14T05:00:31", level: WARN, component: "driver", message: "ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped"}
+  - {ts: "2026-10-14T05:00:40", level: INFO, component: "driver", message: "Registered executor worker-01.dp.internal with ID 1"}
+  - {ts: "2026-10-14T05:00:50", level: INFO, component: "driver", message: "Requesting 40 executors (4 cores, 8 GiB each) from queue root.analytics"}
+  - {ts: "2026-10-14T05:01:20", level: WARN, component: "driver", message: "Container allocation: 6 granted, 34 pending (queue root.analytics at 100% of capacity)"}
+  - {ts: "2026-10-14T05:01:46", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 20454 alive"}
+  - {ts: "2026-10-14T05:03:18", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 22745 alive"}
+  - {ts: "2026-10-14T05:04:40", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 20432 alive"}
+  - {ts: "2026-10-14T05:06:20", level: WARN, component: "driver", message: "Container allocation: 6 granted, 34 pending (queue root.analytics at 100% of capacity)"}
+  - {ts: "2026-10-14T05:06:21", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 24780 alive"}
+  - {ts: "2026-10-14T05:08:17", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 22927 alive"}
+  - {ts: "2026-10-14T05:09:54", level: INFO, component: "scheduler", message: "Heartbeat received from worker-08.dp.internal"}
+  - {ts: "2026-10-14T05:10:39", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 21404 alive"}
+  - {ts: "2026-10-14T05:13:06", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 25671 alive"}
+  - {ts: "2026-10-14T05:14:29", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 25372 alive"}
+  - {ts: "2026-10-14T05:15:11", level: INFO, component: "scheduler", message: "Heartbeat received from worker-08.dp.internal"}
+  - {ts: "2026-10-14T05:16:20", level: WARN, component: "driver", message: "Container allocation: 6 granted, 34 pending (queue root.analytics at 100% of capacity)"}
+  - {ts: "2026-10-14T05:16:52", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 26676 alive"}
+  - {ts: "2026-10-14T05:18:18", level: INFO, component: "scheduler", message: "Heartbeat received from worker-01.dp.internal"}
+  - {ts: "2026-10-14T05:20:51", level: INFO, component: "scheduler", message: "Heartbeat received from worker-08.dp.internal"}
+  - {ts: "2026-10-14T05:22:15", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 23903 alive"}
+  - {ts: "2026-10-14T05:23:44", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 21274 alive"}
+  - {ts: "2026-10-14T05:24:48", level: INFO, component: "scheduler", message: "Task ml_feature_backfill.backfill_features heartbeat: pid 27523 alive"}
+  - {ts: "2026-10-14T05:26:13", level: INFO, component: "scheduler", message: "Heartbeat received from worker-08.dp.internal"}
+  - {ts: "2026-10-14T05:26:20", level: WARN, component: "driver", message: "Container allocation: 7 granted, 33 pending (queue root.analytics at 100% of capacity)"}
+  - {ts: "2026-10-14T05:27:46", level: INFO, component: "scheduler", message: "Heartbeat received from worker-01.dp.internal"}
+  - {ts: "2026-10-14T05:31:20", level: ERROR, component: "driver", message: "Timed out waiting for 40 executors to register after 1800s; only 7 registered"}
+  - {ts: "2026-10-14T05:31:25", level: ERROR, component: "scheduler", message: "Task ml_feature_backfill.backfill_features failed: executor registration timeout (attempt 1 of 2)"}
+  - {ts: "2026-10-14T05:31:27", level: INFO, component: "scheduler", message: "DagRun ml_feature_backfill marked failed; alert sent to #growth-ml-alerts"}
+metrics:
+  - name: pending_containers
+    shape: ramp
+    baseline: 0.0
+    peak: 34.0
+    start_minute: 310
+    end_minute: 312
+    noise: 0.0
+    seed: 9037
+  - name: cluster_cpu_utilization
+    shape: step
+    baseline: 0.45
+    peak: 0.97
+    start_minute: 290
+    noise: 0.01
+    seed: 9038
+recent_incidents:
+  - {job_name: ml_feature_backfill, status: failed, finished_at: "2026-10-14T05:31:27", title: "ml_feature_backfill failed: timed out waiting for executors (1800s)"}
+  - {job_name: churn_scoring_batch, status: resolved, finished_at: "2026-10-10T08:00:00", title: "churn_scoring_batch emitted NaN scores for 12 users"}
+  - {job_name: embedding_refresh, status: resolved, finished_at: "2026-10-04T03:00:00", title: "embedding_refresh ran twice, duplicates removed"}
+ground_truth:
+  root_cause_category: resource_starvation
+  root_cause_detail: "The analytics queue was saturated by other workloads, so only a handful of the 40 requested executors were granted and the job timed out waiting for the rest."
+  correct_runbook: resource_starvation.md
+  correct_remediation: rerun_with_backoff
+  key_evidence:
+    - "6 granted, 34 pending (queue root.analytics at 100% of capacity)"
+    - "Timed out waiting for 40 executors to register after 1800s"

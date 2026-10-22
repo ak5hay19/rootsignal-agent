@@ -1,0 +1,78 @@
+id: misleading_upstream_01
+team: orders-analytics
+job_name: inventory_snapshot_daily
+user_report: "inventory_snapshot_daily failed at 2am. The log is full of connection timeouts so I assume the network or warehouse API is flaky again? Can you confirm before I page someone?"
+as_of: "2026-10-16T02:40:00"
+is_misleading: true
+job_state:
+  job_name: inventory_snapshot_daily
+  status: "failed"
+  started_at: "2026-10-16T02:00:00"
+  ended_at: "2026-10-16T02:12:10"
+  attempt: 1
+  max_attempts: 2
+  last_success_at: "2026-10-15T02:09:33"
+  exit_reason: "input partition missing"
+logs:
+  - {ts: "2026-10-16T02:00:00", level: INFO, component: "scheduler", message: "DagRun inventory_snapshot_daily started (run_id=scheduled__2026-10-16T01:00:00+00:00)"}
+  - {ts: "2026-10-16T02:00:02", level: INFO, component: "scheduler", message: "Marked task inventory_snapshot_daily.snapshot_inventory as queued, attempt 1 of 2"}
+  - {ts: "2026-10-16T02:00:09", level: INFO, component: "driver", message: "Running Spark version 3.5.1"}
+  - {ts: "2026-10-16T02:00:10", level: WARN, component: "driver", message: "NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"}
+  - {ts: "2026-10-16T02:00:14", level: INFO, component: "driver", message: "Submitted application application_176005030009_0042"}
+  - {ts: "2026-10-16T02:00:31", level: WARN, component: "driver", message: "ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped"}
+  - {ts: "2026-10-16T02:00:40", level: INFO, component: "driver", message: "Registered executor worker-05.dp.internal with ID 1"}
+  - {ts: "2026-10-16T02:01:07", level: INFO, component: "executor-4", message: "Added broadcast_15_piece0 in memory on worker-05.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-16T02:02:02", level: INFO, component: "driver", message: "Block broadcast_26 stored as values in memory (estimated size 82.3 KiB, free 2.1 GiB)"}
+  - {ts: "2026-10-16T02:03:03", level: INFO, component: "executor-1", message: "Added broadcast_23_piece0 in memory on worker-17.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-16T02:03:10", level: WARN, component: "executor-1", message: "Connection to warehouse-api.dp.internal timed out after 5000 ms (retry 1/3)"}
+  - {ts: "2026-10-16T02:03:12", level: INFO, component: "executor-1", message: "Retry succeeded after 2.1 s"}
+  - {ts: "2026-10-16T02:03:31", level: INFO, component: "driver", message: "ShuffleMapStage 0 (save at inventory_snapshot_daily.py:123) finished in 87.989 s"}
+  - {ts: "2026-10-16T02:04:22", level: INFO, component: "executor-2", message: "Finished task 98.0 in stage 0.0 (TID 34). 2341 bytes result sent to driver"}
+  - {ts: "2026-10-16T02:04:51", level: INFO, component: "scheduler", message: "Task inventory_snapshot_daily.snapshot_inventory heartbeat: pid 20971 alive"}
+  - {ts: "2026-10-16T02:05:42", level: WARN, component: "executor-1", message: "Connection to warehouse-api.dp.internal timed out after 5000 ms (retry 1/3)"}
+  - {ts: "2026-10-16T02:05:44", level: INFO, component: "executor-1", message: "Retry succeeded after 2.1 s"}
+  - {ts: "2026-10-16T02:05:52", level: INFO, component: "driver", message: "Starting job: count at inventory_snapshot_daily.py:99"}
+  - {ts: "2026-10-16T02:06:19", level: INFO, component: "executor-2", message: "Got assigned task 46"}
+  - {ts: "2026-10-16T02:07:15", level: WARN, component: "executor-1", message: "Connection to warehouse-api.dp.internal timed out after 5000 ms (retry 1/3)"}
+  - {ts: "2026-10-16T02:07:16", level: INFO, component: "driver", message: "Finished task 170.0 in stage 0.0 (TID 57) in 6548 ms on worker-17.dp.internal (executor 4) (114/200)"}
+  - {ts: "2026-10-16T02:07:17", level: INFO, component: "executor-1", message: "Retry succeeded after 2.1 s"}
+  - {ts: "2026-10-16T02:07:57", level: INFO, component: "driver", message: "Reading input table raw.inventory_levels partition ds=2026-10-16"}
+  - {ts: "2026-10-16T02:08:30", level: INFO, component: "driver", message: "ShuffleMapStage 0 (collect at inventory_snapshot_daily.py:35) finished in 5.945 s"}
+  - {ts: "2026-10-16T02:09:01", level: WARN, component: "executor-1", message: "Connection to warehouse-api.dp.internal timed out after 5000 ms (retry 1/3)"}
+  - {ts: "2026-10-16T02:09:03", level: INFO, component: "executor-1", message: "Retry succeeded after 2.1 s"}
+  - {ts: "2026-10-16T02:09:27", level: INFO, component: "driver", message: "ShuffleMapStage 0 (parquet at inventory_snapshot_daily.py:31) finished in 85.616 s"}
+  - {ts: "2026-10-16T02:09:48", level: INFO, component: "driver", message: "Finished task 62.0 in stage 0.0 (TID 75) in 10219 ms on worker-17.dp.internal (executor 1) (132/200)"}
+  - {ts: "2026-10-16T02:10:35", level: INFO, component: "scheduler", message: "Task inventory_snapshot_daily.snapshot_inventory heartbeat: pid 25016 alive"}
+  - {ts: "2026-10-16T02:11:30", level: INFO, component: "driver", message: "Checking upstream: warehouse_export.publish last success 2026-10-14T23:40:11, current run still in progress"}
+  - {ts: "2026-10-16T02:12:02", level: ERROR, component: "driver", message: "org.apache.spark.sql.AnalysisException: Path does not exist: s3://dp-lake/raw/inventory_levels/ds=2026-10-15"}
+  - {ts: "2026-10-16T02:12:03", level: ERROR, component: "driver", message: "No input partition for raw.inventory_levels ds=2026-10-15; warehouse_export.publish still running"}
+  - {ts: "2026-10-16T02:12:08", level: ERROR, component: "scheduler", message: "Task inventory_snapshot_daily.snapshot_inventory failed: input partition missing (attempt 1 of 2)"}
+  - {ts: "2026-10-16T02:12:10", level: INFO, component: "scheduler", message: "DagRun inventory_snapshot_daily marked failed; alert sent to #orders-analytics-alerts"}
+metrics:
+  - name: input_rows_total
+    shape: spike
+    baseline: 2400000.0
+    peak: 0.0
+    start_minute: 320
+    end_minute: 332
+    noise: 0.03
+    seed: 15547
+  - name: network_error_rate
+    shape: step
+    baseline: 0.002
+    peak: 0.04
+    start_minute: 322
+    noise: 0.1
+    seed: 15548
+recent_incidents:
+  - {job_name: inventory_snapshot_daily, status: failed, finished_at: "2026-10-16T02:12:10", title: "inventory_snapshot_daily failed: input partition missing"}
+  - {job_name: orders_dim_refresh, status: resolved, finished_at: "2026-10-13T05:02:00", title: "orders_dim_refresh started 25 minutes late"}
+  - {job_name: daily_orders, status: resolved, finished_at: "2026-10-15T02:41:33", title: "daily_orders failed: task transform_orders exited with code 137"}
+ground_truth:
+  root_cause_category: upstream_late
+  root_cause_detail: "The warehouse_export job that produces the input partition was still running, so the partition did not exist when the snapshot started. The warehouse API timeouts were retried successfully and are unrelated."
+  correct_runbook: upstream_late.md
+  correct_remediation: rerun_with_backoff
+  key_evidence:
+    - "Path does not exist: s3://dp-lake/raw/inventory_levels/ds=2026-10-15"
+    - "warehouse_export.publish still running"

@@ -1,0 +1,73 @@
+id: auth_expired_01
+team: content-platform
+job_name: cms_events_sync
+user_report: "cms_events_sync has been red since last night. Retries all fail the same way. Nothing changed on our end as far as I know."
+as_of: "2026-10-13T07:30:00"
+is_misleading: false
+job_state:
+  job_name: cms_events_sync
+  status: "failed"
+  started_at: "2026-10-13T03:00:00"
+  ended_at: "2026-10-13T03:20:27"
+  attempt: 3
+  max_attempts: 3
+  last_success_at: "2026-10-12T03:11:40"
+  exit_reason: "task failed after 3 attempts"
+logs:
+  - {ts: "2026-10-13T03:00:00", level: INFO, component: "scheduler", message: "DagRun cms_events_sync started (run_id=scheduled__2026-10-13T01:00:00+00:00)"}
+  - {ts: "2026-10-13T03:00:02", level: INFO, component: "scheduler", message: "Marked task cms_events_sync.push_to_warehouse as queued, attempt 3 of 3"}
+  - {ts: "2026-10-13T03:00:09", level: INFO, component: "driver", message: "Running Spark version 3.5.1"}
+  - {ts: "2026-10-13T03:00:10", level: WARN, component: "driver", message: "NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable"}
+  - {ts: "2026-10-13T03:00:14", level: INFO, component: "driver", message: "Submitted application application_176003200003_0042"}
+  - {ts: "2026-10-13T03:00:31", level: WARN, component: "driver", message: "ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped"}
+  - {ts: "2026-10-13T03:00:40", level: INFO, component: "driver", message: "Registered executor worker-02.dp.internal with ID 1"}
+  - {ts: "2026-10-13T03:01:05", level: INFO, component: "executor-2", message: "Finished task 28.0 in stage 0.0 (TID 5). 2341 bytes result sent to driver"}
+  - {ts: "2026-10-13T03:02:09", level: INFO, component: "scheduler", message: "Heartbeat received from worker-02.dp.internal"}
+  - {ts: "2026-10-13T03:02:59", level: INFO, component: "driver", message: "Finished task 151.0 in stage 0.0 (TID 107) in 2425 ms on worker-11.dp.internal (executor 5) (31/200)"}
+  - {ts: "2026-10-13T03:03:48", level: INFO, component: "driver", message: "Block broadcast_13 stored as values in memory (estimated size 66.9 KiB, free 2.1 GiB)"}
+  - {ts: "2026-10-13T03:05:22", level: INFO, component: "scheduler", message: "Task cms_events_sync.push_to_warehouse heartbeat: pid 20983 alive"}
+  - {ts: "2026-10-13T03:06:16", level: INFO, component: "executor-2", message: "Finished task 96.0 in stage 0.0 (TID 265). 2314 bytes result sent to driver"}
+  - {ts: "2026-10-13T03:06:33", level: INFO, component: "driver", message: "Finished task 110.0 in stage 0.0 (TID 285) in 12857 ms on worker-11.dp.internal (executor 6) (95/200)"}
+  - {ts: "2026-10-13T03:07:31", level: INFO, component: "driver", message: "Block broadcast_10 stored as values in memory (estimated size 62.9 KiB, free 2.1 GiB)"}
+  - {ts: "2026-10-13T03:08:34", level: INFO, component: "driver", message: "Reading input table raw.cms_events partition ds=2026-10-13"}
+  - {ts: "2026-10-13T03:09:35", level: INFO, component: "driver", message: "Finished task 7.0 in stage 1.0 (TID 437) in 13907 ms on worker-11.dp.internal (executor 1) (154/200)"}
+  - {ts: "2026-10-13T03:10:21", level: INFO, component: "driver", message: "Finished task 29.0 in stage 1.0 (TID 468) in 8351 ms on worker-11.dp.internal (executor 3) (52/200)"}
+  - {ts: "2026-10-13T03:11:33", level: INFO, component: "driver", message: "Starting job: parquet at cms_events_sync.py:64"}
+  - {ts: "2026-10-13T03:11:57", level: INFO, component: "executor-2", message: "Finished task 182.0 in stage 1.0 (TID 549). 2314 bytes result sent to driver"}
+  - {ts: "2026-10-13T03:13:07", level: INFO, component: "executor-3", message: "Added broadcast_21_piece0 in memory on worker-11.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T03:14:06", level: INFO, component: "executor-2", message: "Added broadcast_27_piece0 in memory on worker-11.dp.internal:38211 (size: 12.4 KiB)"}
+  - {ts: "2026-10-13T03:15:08", level: INFO, component: "driver", message: "Finished task 2.0 in stage 2.0 (TID 711) in 2485 ms on worker-11.dp.internal (executor 4) (97/200)"}
+  - {ts: "2026-10-13T03:15:54", level: INFO, component: "driver", message: "Starting job: count at cms_events_sync.py:102"}
+  - {ts: "2026-10-13T03:17:00", level: INFO, component: "executor-2", message: "Finished task 141.0 in stage 2.0 (TID 800). 2290 bytes result sent to driver"}
+  - {ts: "2026-10-13T03:17:41", level: INFO, component: "driver", message: "Finished task 183.0 in stage 2.0 (TID 842) in 10968 ms on worker-11.dp.internal (executor 2) (119/200)"}
+  - {ts: "2026-10-13T03:18:24", level: INFO, component: "driver", message: "Starting job: save at cms_events_sync.py:96"}
+  - {ts: "2026-10-13T03:20:14", level: INFO, component: "driver", message: "Opening connection to warehouse-ext.vendor-example.net:443 as svc-cms-sync"}
+  # Deliberate fake secret used to test redaction in Phase 3. Not a real token.
+  - {ts: "2026-10-13T03:20:15", level: INFO, component: "driver", message: "Request: POST /v3/ingest/batch Authorization: Bearer FAKE-TOKEN-NOT-REAL"}
+  - {ts: "2026-10-13T03:20:16", level: WARN, component: "driver", message: "HTTP 401 Unauthorized from warehouse-ext.vendor-example.net, attempting token refresh"}
+  - {ts: "2026-10-13T03:20:17", level: ERROR, component: "driver", message: "Token refresh failed: client secret for svc-cms-sync expired on 2026-10-12 (invalid_client)"}
+  - {ts: "2026-10-13T03:20:18", level: ERROR, component: "executor-1", message: "org.apache.spark.SparkException: Task failed while writing rows: HTTP 401 Unauthorized"}
+  - {ts: "2026-10-13T03:20:19", level: ERROR, component: "driver", message: "Job aborted due to stage failure: Task 0 in stage 3.0 failed 4 times, most recent failure: HTTP 401 Unauthorized"}
+  - {ts: "2026-10-13T03:20:25", level: ERROR, component: "scheduler", message: "Task cms_events_sync.push_to_warehouse failed after 3 attempts"}
+  - {ts: "2026-10-13T03:20:27", level: INFO, component: "scheduler", message: "DagRun cms_events_sync marked failed; alert sent to #content-platform-alerts"}
+metrics:
+  - name: job_retry_count
+    shape: step
+    baseline: 0.0
+    peak: 3.0
+    start_minute: 110
+    noise: 0.0
+    seed: 10318
+recent_incidents:
+  - {job_name: cms_events_sync, status: failed, finished_at: "2026-10-13T03:20:27", title: "cms_events_sync failed: task failed after 3 attempts"}
+  - {job_name: media_thumbnail_batch, status: resolved, finished_at: "2026-10-10T12:30:00", title: "media_thumbnail_batch queue backed up, drained"}
+  - {job_name: search_index_refresh, status: resolved, finished_at: "2026-10-06T05:05:00", title: "search_index_refresh skipped one run"}
+ground_truth:
+  root_cause_category: auth_expired
+  root_cause_detail: "The service account client secret used to push to the external warehouse expired on 10-12, so every request returned 401 and token refresh was rejected; retries cannot fix it."
+  correct_runbook: auth_expired.md
+  correct_remediation: escalate_to_oncall
+  key_evidence:
+    - "HTTP 401 Unauthorized"
+    - "client secret for svc-cms-sync expired on 2026-10-12"
+    - "invalid_client"
