@@ -4,13 +4,16 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "anthropic>=2.1.0",
+    "faiss-cpu>=1.15.1",
     "httpx>=0.28.1",
     "mcp>=2.3.0",
     "prometheus-client>=0.26.0",
     "pydantic>=2.14.1",
     "python-dotenv>=1.2.4",
     "pyyaml>=6.0.3",
+    "sentence-transformers>=6.2.0",
     "slack-bolt>=1.30.0",
+    "torch>=2.14.1",
 ]
 
 [dependency-groups]
@@ -29,3 +32,12 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+# CPU-only PyTorch keeps the install small (no CUDA wheels).
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
